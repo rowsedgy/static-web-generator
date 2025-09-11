@@ -4,7 +4,6 @@ from textnode import TextType, TextNode
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
-    # delimiters = ('`', '**', '_')
     new_nodes = []
 
     for node in old_nodes:
@@ -15,16 +14,9 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         for i in range(len(split_text)):
             nodes = []
             if i % 2 == 0:
-                nodes.append(TextNode(split_text[i], TextType.TEXT))
+                if split_text[i]:
+                    nodes.append(TextNode(split_text[i], TextType.TEXT))
             else:
                 nodes.append(TextNode(split_text[i], text_type))
-    new_nodes.extend(nodes)
+            new_nodes.extend(nodes)
     return new_nodes
-
-    
-
-node = TextNode("This is text with a `code block` word", TextType.TEXT)
-node2 = TextNode('`bold` text `code text`', TextType.TEXT)
-new_nodes = split_nodes_delimiter([node, node2], "`", TextType.CODE)
-
-print(new_nodes)
